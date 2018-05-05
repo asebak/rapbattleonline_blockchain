@@ -4,7 +4,15 @@
 
 // Load application styles
 import 'styles/index.scss';
+import * as Neb from "nebulas";
+import 'bootstrap';
+import "bootstrap/scss/bootstrap.scss";
 
-// ================================
-// START YOUR APP HERE
-// ================================
+window.createAccount = function(passphrase) {
+   // let account = Neb.Account.NewAccount()
+    //alert(account.getAddressString())
+};
+
+  
+//module.exports = createAccount;
+
