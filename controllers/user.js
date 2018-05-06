@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
 const Nas = require('nebulas');
-
+const fs = require('fs')
 const randomBytesAsync = promisify(crypto.randomBytes);
 
 /**
@@ -25,9 +25,9 @@ exports.getLogin = (req, res) => {
  * Sign in using email and password.
  */
 exports.postLogin = (req, res, next) => {
-  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('keystore', 'Email is not valid').notEmpty();
   req.assert('password', 'Password cannot be blank').notEmpty();
-  req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
+
 
   const errors = req.validationErrors();
 
@@ -35,9 +35,17 @@ exports.postLogin = (req, res, next) => {
     req.flash('errors', errors);
     return res.redirect('/login');
   }
+ // var passphrase = req.body.password;
+
+
+
 
   passport.authenticate('local', (err, user, info) => {
-    if (err) { return next(err); }
+    if (err) { 
+      //return next(err);
+      req.flash('errors', err.message);
+      return res.redirect('/login');
+    }
     if (!user) {
       req.flash('errors', info);
       return res.redirect('/login');
