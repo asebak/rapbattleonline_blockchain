@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   addressId: { type: String, unique: true },
   balance: Number,
-
+  key: Object,
   profile: {
     name: String,
     gender: String,

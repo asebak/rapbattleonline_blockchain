@@ -5,13 +5,20 @@ const Nas = require('nebulas');
 const { Strategy: LocalStrategy } = require('passport-local');
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
+passport.deserializeUser((req, user, done) => {
+  var isValid = Nas.Account.isValidAddress(user.addressId);
+  if(isValid){
+    done(null, user);
+  }else{
+    //todo put error here
+  }
+ /* User.findById(id, (err, user) => {
     done(err, user);
   });
+  */
 });
 
 /**
@@ -37,6 +44,8 @@ passport.use(new LocalStrategy({ usernameField: 'jsoncontents', passwordField: '
            var user = new User();
            user.addressId = id;
            user.balance = Nas.Unit.fromBasic(Nas.Utils.toBigNumber(resp.balance), "nas").toNumber();
+           user.key = key;
+           user.profile.picture = '/images/logo2.png'
            return done(null, user);
          }
      })

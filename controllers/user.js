@@ -39,6 +39,12 @@ exports.postLogin = (req, res, next) => {
 
 
 
+ /* passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  })(req, res, next);  */
+
 
   passport.authenticate('local', (err, user, info) => {
     if (err) { 
@@ -51,6 +57,7 @@ exports.postLogin = (req, res, next) => {
       return res.redirect('/login');
     }
     req.logIn(user, (err) => {
+      //return res.redirect('/login');
       if (err) { return next(err); }
       req.flash('success', { msg: 'Success! You are logged in.' });
       res.redirect(req.session.returnTo || '/');
