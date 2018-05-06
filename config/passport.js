@@ -23,7 +23,29 @@ passport.use(new LocalStrategy({ usernameField: 'jsoncontents', passwordField: '
     try {
       var acc = account.fromAddress(key.address);
       acc = acc.fromKey(key, password);
-      return done(null, acc);
+     var id = acc.getAddressString();
+     
+     var Neb = Nas.Neb;
+     var neb = new Neb();
+     //todo put network in configuration
+     neb.setRequest(new Nas.HttpRequest("https://testnet.nebulas.io"));
+     neb.api.getAccountState(id)
+     .then(function (resp) {
+         if (resp.error) {
+          return done(resp.error); 
+         } else {
+           var user = new User();
+           user.addressId = id;
+           user.balance = Nas.Unit.fromBasic(Nas.Utils.toBigNumber(resp.balance), "nas").toNumber();
+           return done(null, user);
+         }
+     })
+     .catch(function (e) {
+      return done(e.message); 
+     });
+
+
+      //return done(null, acc);
     } catch (err) {
       return done(err); 
     }
