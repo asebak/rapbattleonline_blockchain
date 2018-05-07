@@ -49,7 +49,7 @@ exports.postLogin = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) { 
       //return next(err);
-      req.flash('errors', err.message);
+      req.flash('errors', { msg: err.message });
       return res.redirect('/login');
     }
     if (!user) {
