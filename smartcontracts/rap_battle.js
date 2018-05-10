@@ -26,10 +26,21 @@ var RapBattle = function () {
             return o.toString();
         }
     });
+
+    LocalContractStorage.defineMapProperty(this, "battleids", {
+        parse: function (text) {
+            return new RapBattleItem(text);
+        },
+        stringify: function (o) {
+            return o.toString();
+        }
+    });
+    LocalContractStorage.defineProperty(this, "battlecount", null)
 };
 
 RapBattle.prototype = {
     init: function () {
+        this.battlecount = 0;
     },
 
     start: function(challengedId, endDate) {
@@ -40,19 +51,31 @@ RapBattle.prototype = {
         var battleId = Blockchain.transaction.hash;
         var userId1 = Blockchain.transaction.from;
         var userId2 = challengedId || "";
+        //var battles = this.rapbattle.get(userId1);
 
-        var battles = this.rapbattle.get(userId1);
-
-        battles.push({
+      /*  battles.push({
             battleId: battleId,
             userId1: userId1,
             userId2: userId2,
             endDate: endDate
         });
+        */
+
+       this.battleids.put(this.battlecount, battleId);
+       this.battlecount = new BigNumber(this.battlecount).plus(1);
     },
 
-    get: function(battleId){
+    get: function (battleId) {
             //gets the battle context
+
+    },
+
+    getAll: function() {
+        var battles = [];
+        for (var i = 0; i <  this.battlecount; i++) {
+            battles.push(this.battleids.get(i))
+          }
+          return JSON.stringify(battles);
     },
 
     join: function(){
@@ -65,4 +88,4 @@ RapBattle.prototype = {
 
 
 };
-module.exports = UserProfile;
+module.exports = RapBattle;

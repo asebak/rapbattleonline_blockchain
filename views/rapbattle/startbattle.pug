@@ -2,4 +2,33 @@ extends ../layout
 
 block content
   .page-header
-    p testing
+    h3 Start Rap Battle
+  form.form-horizontal(id='startRapBattle', action='/startrapbattle', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='to') To
+      .col-sm-7
+        input.form-control(type='text', name='to', id='to', placeholder="open",readonly)
+    .form-group
+      label.col-sm-3.control-label(for='beat') Beat
+      .col-sm-7
+          input.form-control(type='text', name='beat', id='beat',placeholder="accapella", readonly)
+    .form-group
+            label.col-sm-3.control-label(for='time') Time
+            .col-sm-7
+              input.form-control(type='text', name='time', id='time', readonly, placeholder="30 seconds")
+    .form-group
+            label.col-sm-3.control-label(for='end') End Date
+            .col-sm-7
+            input.form-control(id="datepicker")
+    .form-group
+            .col-sm-offset-3.col-sm-4
+             a(data-toggle="modal" href="#passwordModal" class="btn btn-primary") Start Battle
+
+    include ../partials/passwordconfirm
+
+
+    script(src='/js/startrapbattle.js')
+
+
+    

@@ -3,6 +3,8 @@
  * Home page.
  */
 exports.index = (req, res) => {
+  var contractId = process.env.NAS_RAP_CONTRACT_ID;
+  
   res.render('home', {
     title: 'Home',
     env: {

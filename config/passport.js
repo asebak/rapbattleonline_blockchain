@@ -46,7 +46,7 @@ passport.use(new LocalStrategy({ usernameField: 'jsoncontents', passwordField: '
            user.key = key;
            user.profile.picture = '/images/logo2.png'
            user.nonce = parseInt(resp.nonce || 0) + 1
-           var toAddress = process.env.NAS_CONTRACT_ID;
+           var toAddress = process.env.NAS_USER_CONTRACT_ID;
            var amount = "0"
            var callArgs = "[\"" + id + "\"]";   
 

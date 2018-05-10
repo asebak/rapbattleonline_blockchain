@@ -124,7 +124,7 @@ exports.postUpdateProfile = (req, res, next) => {
   var website = req.body.website || '';
   var picture = req.body.picturebytes || '';
   var fromAddress = req.user.addressId;
-  var toAddress = process.env.NAS_CONTRACT_ID;
+  var toAddress = process.env.NAS_USER_CONTRACT_ID;
   var balance = req.user.balance;
   var amount = "0"
   var acc = Nas.Account.fromAddress(fromAddress); 
@@ -150,35 +150,5 @@ exports.postUpdateProfile = (req, res, next) => {
   req.flash('errors', { msg: error.message });
   res.redirect('/account');
 }
-    /*var neb = new Nas.Neb();
-    neb.setRequest(new Nas.HttpRequest(process.env.NAS_NETWORK_ENDPOINT));
 
-
-
-
-
-
-
-    var callArgs = "[\"" + fromAddress + "\"]";
-
-
-    var contract = {function: "get", args: callArgs}
-
-     var acc = Nas.Account.fromAddress(fromAddress);
-     
-     acc = acc.fromKey(req.user.key, "ahmad");
-
-     var gTx = new Nas.Transaction(chainId, acc, toAddress, 
-      Nas.Unit.nasToBasic(Nas.Utils.toBigNumber(amount)), parseInt(nonce), gasprice, gaslimit, contract);
-
-     gTx.signTransaction();
-     gTx && neb.api.sendRawTransaction(gTx.toProtoString())
-     .then(function (resp) {
-         req.flash('success', { msg: 'Profile information has been updated. TX: ' + resp.txhash });
-         res.redirect('/account');
-     })
-     .catch(function (o) {
-      req.flash('errors', { msg: 'Profile information could not be updated.' });
-      res.redirect('/account');
-     });*/
   };

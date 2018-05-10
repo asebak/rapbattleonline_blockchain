@@ -116,7 +116,9 @@ app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
-app.get('/startrapbattle', rapbattleController.startRapBattle);
+app.get('/startrapbattle', rapbattleController.getStartRapBattle);
+app.post('/startrapbattle', rapbattleController.postStartRapBattle);
+app.get('/rapbattle/:battleid', rapbattleController.getRapBattle);
 
 
 /**
