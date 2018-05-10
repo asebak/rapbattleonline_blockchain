@@ -8,19 +8,23 @@ block content
     .form-group
       label.col-sm-3.control-label(for='to') To
       .col-sm-7
-        input.form-control(type='text', name='to', id='to', placeholder="open",readonly)
+        input.form-control(type='text', name='to', id='to', value="",readonly)
     .form-group
       label.col-sm-3.control-label(for='beat') Beat
       .col-sm-7
-          input.form-control(type='text', name='beat', id='beat',placeholder="accapella", readonly)
+          input.form-control(type='text', name='beat', id='beat',placeholder="accapella", readonly, value="Accapella")
     .form-group
             label.col-sm-3.control-label(for='time') Time
             .col-sm-7
-              input.form-control(type='text', name='time', id='time', readonly, placeholder="30 seconds")
+              input.form-control(type='text', name='time', id='time', readonly, placeholder="30 seconds", value=30)
     .form-group
             label.col-sm-3.control-label(for='end') End Date
             .col-sm-7
-            input.form-control(id="datepicker")
+              .input-group.date(id="datepicker", data-provide='datepicker')
+                input.form-control(type='text', required, name='end', id='end' value=end)
+                .input-group-addon
+                  span.glyphicon.glyphicon-th
+
     .form-group
             .col-sm-offset-3.col-sm-4
              a(data-toggle="modal" href="#passwordModal" class="btn btn-primary") Start Battle

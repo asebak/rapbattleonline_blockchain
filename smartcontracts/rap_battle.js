@@ -45,29 +45,44 @@ RapBattle.prototype = {
 
     start: function(challengedId, endDate) {
         //starts a battle
+        //todo more validation on enddates
         if ( endDate === "" ) {
             throw new Error("empty end date")
         }
         var battleId = Blockchain.transaction.hash;
         var userId1 = Blockchain.transaction.from;
         var userId2 = challengedId || "";
-        //var battles = this.rapbattle.get(userId1);
+        var battles = this.rapbattle.get(userId1) || [];
 
-      /*  battles.push({
+        battles.push({
             battleId: battleId,
             userId1: userId1,
             userId2: userId2,
             endDate: endDate
         });
-        */
+        
+        //keep track of users rap battles
+        this.rapbattle.put(userId1, battles);
 
+        //keep track of all rap battles
        this.battleids.put(this.battlecount, battleId);
        this.battlecount = new BigNumber(this.battlecount).plus(1);
     },
 
     get: function (battleId) {
-            //gets the battle context
+     /*   var usersBattles = this.rapbattle.get(userId1)
+        for(var i = 0; i < usersBattles.length; i++){
+            if(usersBattles[i].battleId === battleId){
+                return JSON.stringify(usersBattles[i]);
+            }
+        }
+        */
+        return null;
+    },
 
+    getmybattles: function() {
+        var userId = Blockchain.transaction.from;
+        return JSON.stringify(this.rapbattle.get(userId));
     },
 
     getAll: function() {

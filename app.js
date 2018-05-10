@@ -119,6 +119,7 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.get('/startrapbattle', rapbattleController.getStartRapBattle);
 app.post('/startrapbattle', rapbattleController.postStartRapBattle);
 app.get('/rapbattle/:battleid', rapbattleController.getRapBattle);
+app.get('/mybattles', rapbattleController.getMyRapBattleList);
 
 
 /**
